@@ -213,6 +213,39 @@ public class Vertex implements Comparable<Vertex>{
             System.out.println("");
         }
     }
+    public int hammingMetric(){
+        int hamming = 0;
+        for (int i = 1; i <= w; i++) {
+            for (int j = 1; j <= k; j++) {
+                if (this.board[j - 1][i - 1] == (i - 1) * 4 + j || this.board[j - 1][i - 1] == 0) {
+                    continue;
+                } else {
+                    hamming++;
+                }
+            }
+        }
+        hamming += this.depth;
+        return hamming;
+    }
+    public int manhattan() {
+        int distance = 0;
+        int currentRow;
+        int currentColumn;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if(this.board[j][i] != 0 && this.board[j][i] != i * 4 + j + 1){
+                    int boardValue = this.board[j][i] -1;
+                    currentRow = i;
+                    currentColumn = j;
+                    int correctRow = boardValue / 4;
+                    int correctColumn = boardValue % 4 - 1;
+                    distance += Math.abs(correctRow - currentRow) + Math.abs(correctColumn - currentColumn);
+                }
+            }
+        }
+        distance += this.depth;
+        return distance;
+    }
 
     @Override
     public int compareTo(Vertex vertex) {
